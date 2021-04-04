@@ -1,62 +1,30 @@
 /*
 ** EPITECH PROJECT, 2021
-** trees
+** github_public
 ** File description:
 ** Trees
 */
 
-#include "Trees.hpp"
+#ifndef TREES_HPP_
+#define TREES_HPP_
+#define ALPHA_SIZE 26
 
-bool Trees::__searchWord(std::string word, Trees *tree)
-{
-    if (word.size() == 0)
-        return tree->_endWord;
+#include <string>
 
-    char it = word[0] - 97;
-    word.erase(0, 1);
-    if (!tree->_arr[it])
-        return false;
-    return __searchWord(word, tree->_arr[it]);
-}
+class Trees {
+    public:
+        Trees() = default;
+        ~Trees() = default;
 
-bool Trees::searchWord(std::string word)
-{
-    if (word.size() == 0)
-        return false;
-    for (auto &it : word) {
-        if (it >= 'A' && it <= 'Z')
-            it += 32;
-        if (!(it >= 'a' && it <= 'z'))
-            return false;
-    }
-    return __searchWord(word, this);
-}
+        bool addWord(std::string word);
+        bool searchWord(std::string word);
 
-bool Trees::addWord(std::string word)
-{
-    if (word.size() == 0)
-        return false;
-    for (auto &it : word) {
-        if (it >= 'A' && it <= 'Z')
-            it += 32;
-        if (!(it >= 'a' && it <= 'z'))
-            return false;
-    }
-    __addWord(word, this);
-    return true;
-}
+    protected:
+        bool __searchWord(std::string word, Trees *tree);
+        void __addWord(std::string word, Trees *tree);
+    private:
+        Trees **_arr = new Trees*[ALPHA_SIZE];
+        bool _endWord = false;
+};
 
-void Trees::__addWord(std::string word, Trees *tree)
-{
-    if (word.size() == 0) {
-        tree->_endWord = true;
-        return;
-    }
-
-    char it = word[0] - 97;
-
-    word.erase(0, 1);
-    if (!tree->_arr[it])
-        tree->_arr[it] = new Trees;
-    __addWord(word, tree->_arr[it]);
-}
+#endif /* !TREES_HPP_ */
