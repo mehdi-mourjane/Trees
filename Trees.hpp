@@ -16,12 +16,12 @@ class Trees {
         Trees() = default;
         ~Trees() = default;
 
-        bool addWord(std::string word);
-        bool searchWord(std::string word);
+        bool addWord(std::string);
+        bool searchWord(std::string);
 
     protected:
-        bool __searchWord(std::string word, Trees *tree);
-        void __addWord(std::string word, Trees *tree);
+        bool __searchWord(std::string, Trees *);
+        void __addWord(std::string, Trees *);
     private:
         Trees **_arr = new Trees*[ALPHA_SIZE];
         bool _endWord = false;
